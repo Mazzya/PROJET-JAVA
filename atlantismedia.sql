@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 15 jan. 2020 à 12:36
+-- Généré le :  jeu. 16 jan. 2020 à 22:05
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -78,6 +78,35 @@ INSERT INTO `artiste_type_artiste` (`id_artiste`, `id_type_artiste`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `casting`
+--
+
+DROP TABLE IF EXISTS `casting`;
+CREATE TABLE IF NOT EXISTS `casting` (
+  `id_casting` int(11) NOT NULL AUTO_INCREMENT,
+  `annee_composition` int(11) DEFAULT NULL,
+  `role` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `cachet` int(11) DEFAULT NULL,
+  `recompense` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id_oeuvre` int(11) NOT NULL,
+  `id_artiste` int(11) NOT NULL,
+  PRIMARY KEY (`id_casting`),
+  KEY `oeuvre_casting_ibfk_1` (`id_oeuvre`),
+  KEY `casting_artiste_ibfk_2` (`id_artiste`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `casting`
+--
+
+INSERT INTO `casting` (`id_casting`, `annee_composition`, `role`, `cachet`, `recompense`, `id_oeuvre`, `id_artiste`) VALUES
+(1, 2009, 'Gandalf', 1500000, 'oscar du meilleur acteur', 66, 1),
+(2, 2009, 'Gandalf', 1500000, 'oscar du meilleur acteur', 67, 1),
+(3, 2009, 'Gandalf', 1500000, 'oscar du meilleur acteur', 68, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `categorie`
 --
 
@@ -109,6 +138,7 @@ CREATE TABLE IF NOT EXISTS `critique` (
   `id_critique` int(11) NOT NULL AUTO_INCREMENT,
   `commentaire` varchar(250) DEFAULT NULL,
   `note` int(11) DEFAULT NULL,
+  `date_commentaire` date DEFAULT NULL,
   PRIMARY KEY (`id_critique`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -116,8 +146,8 @@ CREATE TABLE IF NOT EXISTS `critique` (
 -- Déchargement des données de la table `critique`
 --
 
-INSERT INTO `critique` (`id_critique`, `commentaire`, `note`) VALUES
-(1, 'Origin Of Symmetry : super album de Muse, des titres devenus cultes !', 5);
+INSERT INTO `critique` (`id_critique`, `commentaire`, `note`, `date_commentaire`) VALUES
+(1, 'Origin Of Symmetry : super album de Muse, des titres devenus cultes !', 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -130,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `genre` (
   `id_genre` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(50) NOT NULL,
   PRIMARY KEY (`id_genre`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `genre`
@@ -149,7 +179,8 @@ INSERT INTO `genre` (`id_genre`, `libelle`) VALUES
 (10, 'Rock'),
 (11, 'Pop'),
 (12, 'Variété Française'),
-(13, 'FPS');
+(13, 'FPS'),
+(14, 'Dessin Animé');
 
 -- --------------------------------------------------------
 
@@ -182,7 +213,7 @@ DROP TABLE IF EXISTS `morceaux`;
 CREATE TABLE IF NOT EXISTS `morceaux` (
   `id_morceaux` int(11) NOT NULL AUTO_INCREMENT,
   `titre_morceaux` varchar(50) NOT NULL,
-  `duree` int(11) NOT NULL,
+  `duree` varchar(5) NOT NULL,
   PRIMARY KEY (`id_morceaux`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
@@ -191,29 +222,29 @@ CREATE TABLE IF NOT EXISTS `morceaux` (
 --
 
 INSERT INTO `morceaux` (`id_morceaux`, `titre_morceaux`, `duree`) VALUES
-(1, '1.It\'s Not Unusual', 2),
-(2, '2.Memphis Tennessee', 2),
-(3, '3.I Need Your Loving', 2),
-(4, ' 4.Watcha Gonna Do', 3),
-(5, '5.Skye Boat Song', 3),
-(6, '6. Worried Man', 2),
-(7, '7.Once Upon A Time', 2),
-(8, '8.Autumn Leaves', 3),
-(9, '9.It\'s Just A Matter Of Time', 2),
-(10, '10.Spanish Harlem', 3),
-(11, '11.If You Need Me', 2),
-(12, '12.When The World Was Beautiful', 2),
-(13, '1.New Born', 6),
-(14, '2.Bliss', 4),
-(15, '3.Space Dementia', 6),
-(16, '4.Hyper Music', 3),
-(17, '5.Plug In Baby', 3),
-(18, '6.Citizen Erased', 7),
-(19, '7.Micro Cuts', 3),
-(20, '8.Screenager', 4),
-(21, '9.Darkshines', 4),
-(22, '10.Feeling Good', 3),
-(23, '11.Megalomania', 4);
+(1, '1.It\'s Not Unusual', '2.08'),
+(2, '2.Memphis Tennessee', '2.39'),
+(3, '3.I Need Your Loving', '2.44'),
+(4, ' 4.Watcha Gonna Do', '3.06'),
+(5, '5.Skye Boat Song', '2.57'),
+(6, '6. Worried Man', '2.36'),
+(7, '7.Once Upon A Time', '2.08'),
+(8, '8.Autumn Leaves', '3.07'),
+(9, '9.It\'s Just A Matter Of Time', '2.33'),
+(10, '10.Spanish Harlem', '3.17'),
+(11, '11.If You Need Me', '2.39'),
+(12, '12.When The World Was Beautiful', '2.18'),
+(13, '1.New Born', '6.03'),
+(14, '2.Bliss', '4.13'),
+(15, '3.Space Dementia', '6.22'),
+(16, '4.Hyper Music', '3.20'),
+(17, '5.Plug In Baby', '3.40'),
+(18, '6.Citizen Erased', '7.20'),
+(19, '7.Micro Cuts', '3.40'),
+(20, '8.Screenager', '4.20'),
+(21, '9.Darkshines', '4.47'),
+(22, '10.Feeling Good', '3.20'),
+(23, '11.Megalomania', '4.38');
 
 -- --------------------------------------------------------
 
@@ -228,6 +259,7 @@ CREATE TABLE IF NOT EXISTS `oeuvre` (
   `duree` varchar(11) DEFAULT NULL,
   `code_isbn` varchar(50) DEFAULT NULL,
   `date_acquisition` date DEFAULT NULL,
+  `date_realisation` date DEFAULT NULL,
   `id_statut` int(11) NOT NULL,
   `id_origine` int(11) NOT NULL,
   `id_categorie` int(11) NOT NULL,
@@ -237,38 +269,23 @@ CREATE TABLE IF NOT EXISTS `oeuvre` (
   KEY `id_support` (`id_support`),
   KEY `id_origine` (`id_origine`),
   KEY `id_statut` (`id_statut`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `oeuvre`
 --
 
-INSERT INTO `oeuvre` (`id_oeuvre`, `titre`, `duree`, `code_isbn`, `date_acquisition`, `id_statut`, `id_origine`, `id_categorie`, `id_support`) VALUES
-(1, 'It\'s not Unusual', NULL, NULL, NULL, 3, 7, 3, 1),
-(2, 'Origin of Symmetry', NULL, NULL, NULL, 3, 2, 3, 1);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `oeuvre_artiste`
---
-
-DROP TABLE IF EXISTS `oeuvre_artiste`;
-CREATE TABLE IF NOT EXISTS `oeuvre_artiste` (
-  `id_oeuvre` int(11) NOT NULL,
-  `id_artiste` int(11) NOT NULL,
-  `date_de_realisation` date DEFAULT NULL,
-  PRIMARY KEY (`id_oeuvre`,`id_artiste`),
-  KEY `id_artiste` (`id_artiste`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `oeuvre_artiste`
---
-
-INSERT INTO `oeuvre_artiste` (`id_oeuvre`, `id_artiste`, `date_de_realisation`) VALUES
-(1, 11, NULL),
-(2, 3, NULL);
+INSERT INTO `oeuvre` (`id_oeuvre`, `titre`, `duree`, `code_isbn`, `date_acquisition`, `date_realisation`, `id_statut`, `id_origine`, `id_categorie`, `id_support`) VALUES
+(1, 'It\'s not Unusual', NULL, NULL, NULL, NULL, 3, 7, 3, 1),
+(2, 'Origin of Symmetry', NULL, NULL, NULL, NULL, 3, 2, 3, 1),
+(3, 'Die Hard', NULL, NULL, NULL, NULL, 3, 2, 1, 5),
+(45, 'LA la la', NULL, NULL, NULL, NULL, 1, 1, 1, 1),
+(46, 'Ip Man', NULL, NULL, NULL, NULL, 1, 1, 1, 1),
+(47, 'Ip Man 2', NULL, NULL, NULL, NULL, 1, 1, 1, 1),
+(48, 'Le seigneur des anneaux', NULL, NULL, NULL, NULL, 1, 1, 1, 1),
+(66, 'Le seigneur des anneaux 2', NULL, NULL, NULL, NULL, 1, 1, 1, 1),
+(67, 'Le seigneur des anneaux 3', NULL, NULL, NULL, NULL, 1, 1, 1, 1),
+(68, 'Le seigneur des anneaux 3', NULL, NULL, NULL, NULL, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -280,7 +297,6 @@ DROP TABLE IF EXISTS `oeuvre_critique`;
 CREATE TABLE IF NOT EXISTS `oeuvre_critique` (
   `id_oeuvre` int(11) NOT NULL,
   `id_critique` int(11) NOT NULL,
-  `date_de_commentaire` date DEFAULT NULL,
   PRIMARY KEY (`id_oeuvre`,`id_critique`),
   KEY `id_critique` (`id_critique`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -326,7 +342,15 @@ CREATE TABLE IF NOT EXISTS `oeuvre_langue` (
 
 INSERT INTO `oeuvre_langue` (`id_oeuvre`, `id_langue`) VALUES
 (1, 1),
-(2, 1);
+(2, 1),
+(48, 1),
+(66, 1),
+(67, 1),
+(68, 1),
+(48, 2),
+(66, 2),
+(67, 2),
+(68, 2);
 
 -- --------------------------------------------------------
 
@@ -457,7 +481,7 @@ CREATE TABLE IF NOT EXISTS `type_artiste` (
   `id_type_artiste` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_type_artiste`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `type_artiste`
@@ -474,7 +498,9 @@ INSERT INTO `type_artiste` (`id_type_artiste`, `libelle`) VALUES
 (8, 'Guitariste'),
 (9, 'Bassiste'),
 (10, 'Batteur'),
-(11, 'Pianiste');
+(11, 'Pianiste'),
+(12, 'Doubleur'),
+(13, '\r\nDJ');
 
 --
 -- Contraintes pour les tables déchargées
@@ -488,6 +514,13 @@ ALTER TABLE `artiste_type_artiste`
   ADD CONSTRAINT `artiste_type_artiste_ibfk_2` FOREIGN KEY (`id_type_artiste`) REFERENCES `type_artiste` (`id_type_artiste`);
 
 --
+-- Contraintes pour la table `casting`
+--
+ALTER TABLE `casting`
+  ADD CONSTRAINT `casting_artiste_ibfk_2` FOREIGN KEY (`id_artiste`) REFERENCES `artiste` (`id_artiste`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `oeuvre_casting_ibfk_1` FOREIGN KEY (`id_oeuvre`) REFERENCES `oeuvre` (`id_oeuvre`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Contraintes pour la table `oeuvre`
 --
 ALTER TABLE `oeuvre`
@@ -495,13 +528,6 @@ ALTER TABLE `oeuvre`
   ADD CONSTRAINT `oeuvre_ibfk_2` FOREIGN KEY (`id_support`) REFERENCES `support` (`id_support`),
   ADD CONSTRAINT `oeuvre_ibfk_3` FOREIGN KEY (`id_statut`) REFERENCES `statut` (`id_statut`),
   ADD CONSTRAINT `oeuvre_ibfk_4` FOREIGN KEY (`id_categorie`) REFERENCES `categorie` (`id_categorie`);
-
---
--- Contraintes pour la table `oeuvre_artiste`
---
-ALTER TABLE `oeuvre_artiste`
-  ADD CONSTRAINT `oeuvre_artiste_ibfk_1` FOREIGN KEY (`id_oeuvre`) REFERENCES `oeuvre` (`id_oeuvre`),
-  ADD CONSTRAINT `oeuvre_artiste_ibfk_2` FOREIGN KEY (`id_artiste`) REFERENCES `artiste` (`id_artiste`);
 
 --
 -- Contraintes pour la table `oeuvre_critique`
@@ -514,8 +540,8 @@ ALTER TABLE `oeuvre_critique`
 -- Contraintes pour la table `oeuvre_genre`
 --
 ALTER TABLE `oeuvre_genre`
-  ADD CONSTRAINT `oeuvre_genre_ibfk_1` FOREIGN KEY (`id_oeuvre`) REFERENCES `oeuvre` (`id_oeuvre`),
-  ADD CONSTRAINT `oeuvre_genre_ibfk_2` FOREIGN KEY (`id_genre`) REFERENCES `genre` (`id_genre`);
+  ADD CONSTRAINT `oeuvre_genre_ibfk_1` FOREIGN KEY (`id_oeuvre`) REFERENCES `oeuvre` (`id_oeuvre`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `oeuvre_genre_ibfk_2` FOREIGN KEY (`id_genre`) REFERENCES `genre` (`id_genre`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `oeuvre_langue`
