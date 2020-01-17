@@ -6,6 +6,10 @@
 
 package Frames;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author user
@@ -68,23 +72,24 @@ public class PageAccueil extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(205, 205, 205)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(voirOeuvres, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(ajtOeuvre))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(voirOeuvres, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ajtOeuvre)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(162, 162, 162)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(233, 233, 233)
-                        .addComponent(sortir)))
+                        .addComponent(sortir))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(203, 203, 203)
+                        .addComponent(jLabel1)))
                 .addContainerGap(168, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
@@ -94,14 +99,19 @@ public class PageAccueil extends javax.swing.JFrame {
                 .addComponent(voirOeuvres)
                 .addGap(18, 18, 18)
                 .addComponent(sortir)
-                .addContainerGap(406, Short.MAX_VALUE))
+                .addContainerGap(298, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ajtOeuvreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajtOeuvreActionPerformed
-        Formulaire a = new Formulaire();
+        Formulaire a = null;
+        try {
+            a = new Formulaire();
+        } catch (SQLException ex) {
+            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
         a.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_ajtOeuvreActionPerformed
