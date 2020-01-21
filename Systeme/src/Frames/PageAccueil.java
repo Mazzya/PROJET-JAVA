@@ -53,6 +53,11 @@ public class PageAccueil extends javax.swing.JFrame {
         });
 
         voirOeuvres.setText("Voir mes oeuvres");
+        voirOeuvres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voirOeuvresActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("Votre mediacenter virtuelle");
@@ -119,6 +124,17 @@ public class PageAccueil extends javax.swing.JFrame {
     private void sortirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_sortirActionPerformed
+
+    private void voirOeuvresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voirOeuvresActionPerformed
+        VoirOeuvres a = null;
+        try {
+            a = new VoirOeuvres();
+        } catch (SQLException ex) {
+            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_voirOeuvresActionPerformed
 
     /**
      * @param args the command line arguments
